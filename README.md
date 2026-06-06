@@ -1,2 +1,15 @@
-# foodflow-ai
-AI-powered food processing supply chain management platform for inventory tracking, supplier management, logistics monitoring, and demand forecasting.
+# FoodFlow AI
+
+## One-Line Description
+AI-powered food processing supply chain management platform.
+
+## Tech Stack
+- Frontend: React.js
+- Styling: Tailwind CSS
+- Backend: FastAPI
+- Database: PostgreSQL
+- Authentication: JWT
+- Deployment: Vercel + Render
+
+## Setup
+Coming Soon
