@@ -1,0 +1,426 @@
+{
+  "info": {
+    "_postman_id": "foodpro-api-collection-26101022",
+    "name": "W4_APICollection_26101022",
+    "description": "FoodPro REST API — Food Processing Management System\nStudent ID: 26101022\n\nBase URL: http://localhost:5000\n\nEndpoints covered:\n1. GET all processes (with search & filter)\n2. GET single process by ID\n3. POST create process\n4. PUT full update\n5. PATCH partial update\n6. DELETE process\n\nAll responses follow { success, message, data } envelope.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. GET All Processes",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/processes",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "processes"]
+        },
+        "description": "Returns all food processing records.\n\nResponse: { success: true, data: { total, processes[] } }"
+      },
+      "response": [
+        {
+          "name": "200 OK – All Processes",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/processes",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "processes"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            { "key": "Content-Type", "value": "application/json" }
+          ],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": {\n    \"total\": 6,\n    \"processes\": [\n      {\n        \"id\": \"uuid-1\",\n        \"title\": \"Dairy Pasteurization\",\n        \"description\": \"High-temperature short-time (HTST) pasteurization protocol...\",\n        \"category\": \"Thermal Processing\",\n        \"temperature\": \"72°C\",\n        \"duration\": \"15 seconds\",\n        \"compliance\": [\"HACCP\", \"FDA\", \"ISO 22000\"],\n        \"status\": \"active\",\n        \"createdAt\": \"2024-01-10T00:00:00.000Z\",\n        \"updatedAt\": \"2024-01-10T00:00:00.000Z\"\n      }\n    ]\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "2. GET Processes – Search by keyword",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/processes?search=dairy",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "processes"],
+          "query": [
+            { "key": "search", "value": "dairy", "description": "Search by title or description" }
+          ]
+        },
+        "description": "Filter processes by keyword in title or description."
+      },
+      "response": [
+        {
+          "name": "200 OK – Search results",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/processes?search=dairy",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "processes"],
+              "query": [{ "key": "search", "value": "dairy" }]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": {\n    \"total\": 1,\n    \"processes\": [\n      {\n        \"id\": \"uuid-1\",\n        \"title\": \"Dairy Pasteurization\",\n        \"category\": \"Thermal Processing\",\n        \"status\": \"active\"\n      }\n    ]\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "3. GET Processes – Filter by category",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/processes?category=Thermal Processing",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "processes"],
+          "query": [
+            { "key": "category", "value": "Thermal Processing", "description": "Filter by processing category" }
+          ]
+        },
+        "description": "Filter processes by category. Valid values: Thermal Processing, Mechanical Processing, Preservation, Extraction, Biological Processing"
+      },
+      "response": []
+    },
+    {
+      "name": "4. GET Single Process by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/processes/:id",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "processes", ":id"],
+          "variable": [
+            { "key": "id", "value": "REPLACE_WITH_ACTUAL_ID", "description": "Process UUID from GET all" }
+          ]
+        },
+        "description": "Get a single food processing record by its UUID.\n\nReplace :id with a real UUID from the GET all response."
+      },
+      "response": [
+        {
+          "name": "200 OK – Single Process",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/processes/:id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "processes", ":id"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": {\n    \"id\": \"uuid-1\",\n    \"title\": \"Dairy Pasteurization\",\n    \"description\": \"HTST pasteurization protocol...\",\n    \"category\": \"Thermal Processing\",\n    \"temperature\": \"72°C\",\n    \"duration\": \"15 seconds\",\n    \"compliance\": [\"HACCP\", \"FDA\", \"ISO 22000\"],\n    \"status\": \"active\",\n    \"createdAt\": \"2024-01-10T00:00:00.000Z\",\n    \"updatedAt\": \"2024-01-10T00:00:00.000Z\"\n  }\n}"
+        },
+        {
+          "name": "404 Not Found",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/processes/invalid-id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "processes", "invalid-id"]
+            }
+          },
+          "status": "Not Found",
+          "code": 404,
+          "_postman_previewlanguage": "json",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": "{\n  \"success\": false,\n  \"message\": \"Process not found\",\n  \"data\": null\n}"
+        }
+      ]
+    },
+    {
+      "name": "5. POST Create New Process",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Cold Chain Management\",\n  \"description\": \"Automated refrigeration monitoring and control for perishable goods throughout the supply chain. Ensures temperature integrity from production to delivery.\",\n  \"category\": \"Preservation\",\n  \"temperature\": \"-18°C\",\n  \"duration\": \"Continuous\",\n  \"compliance\": [\"FDA\", \"HACCP\", \"ISO 22000\"]\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/processes",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "processes"]
+        },
+        "description": "Create a new food processing entry.\n\nRequired fields: title, description, category\nOptional fields: temperature, duration, compliance[]"
+      },
+      "response": [
+        {
+          "name": "201 Created",
+          "originalRequest": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Cold Chain Management\",\n  \"description\": \"Automated refrigeration monitoring...\",\n  \"category\": \"Preservation\",\n  \"temperature\": \"-18°C\",\n  \"duration\": \"Continuous\",\n  \"compliance\": [\"FDA\", \"HACCP\"]\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/processes",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "processes"]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": "json",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Process created successfully\",\n  \"data\": {\n    \"id\": \"new-uuid-here\",\n    \"title\": \"Cold Chain Management\",\n    \"description\": \"Automated refrigeration monitoring...\",\n    \"category\": \"Preservation\",\n    \"temperature\": \"-18°C\",\n    \"duration\": \"Continuous\",\n    \"compliance\": [\"FDA\", \"HACCP\"],\n    \"status\": \"active\",\n    \"createdAt\": \"2026-06-29T00:00:00.000Z\",\n    \"updatedAt\": \"2026-06-29T00:00:00.000Z\"\n  }\n}"
+        },
+        {
+          "name": "400 Validation Error",
+          "originalRequest": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"title\": \"\"\n}" },
+            "url": {
+              "raw": "http://localhost:5000/api/processes",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "processes"]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": "json",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": "{\n  \"success\": false,\n  \"message\": \"title, description, and category are required\",\n  \"data\": null\n}"
+        }
+      ]
+    },
+    {
+      "name": "6. PUT Full Update Process",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Dairy Pasteurization — Updated\",\n  \"description\": \"Revised HTST pasteurization protocol with enhanced monitoring and automated shut-off for safety compliance.\",\n  \"category\": \"Thermal Processing\",\n  \"temperature\": \"75°C\",\n  \"duration\": \"20 seconds\",\n  \"compliance\": [\"HACCP\", \"FDA\", \"ISO 22000\"],\n  \"status\": \"active\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/processes/:id",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "processes", ":id"],
+          "variable": [
+            { "key": "id", "value": "REPLACE_WITH_ACTUAL_ID", "description": "Process UUID" }
+          ]
+        },
+        "description": "Fully replace a process record. All required fields must be provided.\n\nRequired: title, description, category"
+      },
+      "response": [
+        {
+          "name": "200 OK – Updated",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": {
+              "raw": "http://localhost:5000/api/processes/:id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "processes", ":id"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Process updated successfully\",\n  \"data\": {\n    \"id\": \"uuid-1\",\n    \"title\": \"Dairy Pasteurization — Updated\",\n    \"category\": \"Thermal Processing\",\n    \"temperature\": \"75°C\",\n    \"status\": \"active\",\n    \"updatedAt\": \"2026-06-29T08:00:00.000Z\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "7. PATCH Partial Update (Status Toggle)",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"inactive\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/processes/:id",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "processes", ":id"],
+          "variable": [
+            { "key": "id", "value": "REPLACE_WITH_ACTUAL_ID", "description": "Process UUID" }
+          ]
+        },
+        "description": "Partially update a process. Only provide fields you want to change.\n\nAllowed fields: title, description, category, temperature, duration, compliance, status"
+      },
+      "response": [
+        {
+          "name": "200 OK – Patched",
+          "originalRequest": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"inactive\"\n}" },
+            "url": {
+              "raw": "http://localhost:5000/api/processes/:id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "processes", ":id"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Process partially updated\",\n  \"data\": {\n    \"id\": \"uuid-1\",\n    \"title\": \"Dairy Pasteurization\",\n    \"status\": \"inactive\",\n    \"updatedAt\": \"2026-06-29T08:00:00.000Z\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "8. DELETE Process",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/processes/:id",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "processes", ":id"],
+          "variable": [
+            { "key": "id", "value": "REPLACE_WITH_ACTUAL_ID", "description": "Process UUID to delete" }
+          ]
+        },
+        "description": "Permanently delete a food processing record by ID."
+      },
+      "response": [
+        {
+          "name": "200 OK – Deleted",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/processes/:id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "processes", ":id"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Process deleted successfully\",\n  \"data\": {\n    \"id\": \"uuid-1\",\n    \"title\": \"Dairy Pasteurization\",\n    \"status\": \"active\"\n  }\n}"
+        },
+        {
+          "name": "404 Not Found",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/processes/bad-id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "processes", "bad-id"]
+            }
+          },
+          "status": "Not Found",
+          "code": 404,
+          "_postman_previewlanguage": "json",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": "{\n  \"success\": false,\n  \"message\": \"Process not found\",\n  \"data\": null\n}"
+        }
+      ]
+    },
+    {
+      "name": "9. Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": [""]
+        },
+        "description": "API health check endpoint. Confirms the server is running."
+      },
+      "response": [
+        {
+          "name": "200 OK – Server Running",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000"
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": "{\n  \"success\": true,\n  \"message\": \"FoodPro REST API is running 🚀\",\n  \"version\": \"1.0.0\",\n  \"endpoints\": {\n    \"processes\": \"/api/processes\"\n  }\n}"
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000",
+      "type": "string"
+    }
+  ]
+}
